@@ -1,14 +1,8 @@
 import { Component, ViewChild } from "@angular/core";
 
-import {
-  // ChartComponent,
-  // ApexAxisChartSeries,
-  // ApexCharts,
-  // ApexYAxis,
-  // ApexXAxis,
-  // ApexTitleSubtitle
-} from "apexcharts";
-
+import { ApexOptions} from "apexcharts";
+import {ApexChart, ApexYAxis, ApexXAxis, ApexTitleSubtitle, ApexAxisChartSeries, ChartComponent} from 'ng-apexcharts';
+// import ApexCharts = require('./node_modules/apexcharts/dist/apexcharts.min.js');
 // export type ChartOptions = {
 //   series: ApexAxisChartSeries;
 //   chart: ApexChart;
@@ -16,6 +10,13 @@ import {
 //   yaxis: ApexYAxis;
 //   title: ApexTitleSubtitle;
 // };
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  yaxis: ApexYAxis;
+  title: ApexTitleSubtitle;
+};
 
 @Component({
   selector: 'app-candlestick-chart',
@@ -28,9 +29,11 @@ import {
   // styleUrl: './candlestick.chart.component.css'
 })
 export class CandleStickChartComponent {
-  @ViewChild("chart") chart: any;
+  // @ViewChild("chart") chart: any;
   // public chartOptions: Partial<ChartOptions>;
-  public chartOptions: any;
+  @ViewChild("chart") chart!: ChartComponent;
+  public chartOptions: Partial<ChartOptions>;
+  // public chartOptions: ApexOptions;
 
   constructor() {
     this.chartOptions = {
@@ -291,15 +294,16 @@ export class CandleStickChartComponent {
       },
       xaxis: {
         type: "datetime"
-      },
+      } as ApexXAxis,
       yaxis: {
+        type: "numeric",
         tooltip: {
           enabled: true
         }
       }
-    };
-    var chart = new ApexCharts(document.querySelector('#chart'), this.chartOptions);
-    chart.render()
+    } as ChartOptions;
+    // var chart = new ApexCharts(document.querySelector('#chart'), this.chartOptions);
+    // chart.render()
   }
 
   // public generateDayWiseTimeSeries(baseval: number, count: number, yrange: any) {
