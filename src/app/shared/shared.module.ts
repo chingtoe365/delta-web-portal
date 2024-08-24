@@ -1,19 +1,27 @@
 import { NgModule }      from '@angular/core';
 import { CandleStickChartComponent } from './charts/candlestick.chart.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { SearchBarComponent } from './search.bar.component';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   imports: [
-    // ApexCharts,
-    NgApexchartsModule
+    NgApexchartsModule,
+    AutoCompleteModule,
+    FormsModule,
+    ButtonModule
   ],
   declarations: [
-    CandleStickChartComponent
+    CandleStickChartComponent,
+    SearchBarComponent,
   ],
   providers: [
   ],
   exports: [
-    CandleStickChartComponent
+    CandleStickChartComponent,
+    SearchBarComponent,
   ]
 })
 export class SharedModule { }

@@ -2,10 +2,6 @@ import { NgModule }      from '@angular/core';
 
 @NgModule({
   imports: [
-    // DeltaMenuComponent,
-    // SignalListComponent,
-    // AnalysisComponent,
-    // SharedModule
   ],
   declarations: [
   ],

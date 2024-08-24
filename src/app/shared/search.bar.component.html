@@ -1,0 +1,9 @@
+<p-autoComplete 
+    [(ngModel)]="inputItem" 
+    [suggestions]="suggestions" 
+    [dropdown]="true" 
+    (completeMethod)="completeSearch($event)"
+    />
+<p-button label="Search" 
+    (click)="submitSearch($event)"
+    />
