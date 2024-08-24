@@ -32,7 +32,7 @@ export class CandleStickChartComponent {
   // @ViewChild("chart") chart: any;
   // public chartOptions: Partial<ChartOptions>;
   @ViewChild("chart") chart!: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
+  public chartOptions: ChartOptions;
   // public chartOptions: ApexOptions;
 
   constructor() {
@@ -294,7 +294,7 @@ export class CandleStickChartComponent {
       },
       xaxis: {
         type: "datetime"
-      } as ApexXAxis,
+      },
       yaxis: {
         type: "numeric",
         tooltip: {
