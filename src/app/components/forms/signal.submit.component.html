@@ -1,0 +1,52 @@
+<p-dropdown 
+    [options]="signalCategories" 
+    [(ngModel)]="category" 
+    optionLabel="name" 
+    optionVlaue="value"
+    placeholder="Select a category" />
+
+    <div>
+        <p-inputGroup>
+            <p-inputGroupAddon>
+                <i class="pi pi-arrow-circle-up"></i>
+            </p-inputGroupAddon>
+            <p-checkbox 
+                [(ngModel)]="isUp" 
+                [binary]="true" 
+                inputId="binary" 
+                label="Direction (Up)"
+                />
+        </p-inputGroup>
+        
+    </div>
+    <div>
+        <p-inputGroup>
+            <p-inputGroupAddon>
+                <i class="pi pi-calculator"></i>
+            </p-inputGroupAddon>
+            <input 
+                [(ngModel)]="percentage"
+                type="text"
+                pInputText 
+                placeholder="Percentage" 
+            />
+            <p-inputGroupAddon>%</p-inputGroupAddon>
+        </p-inputGroup>
+        <p-inputGroup>
+            <p-inputGroupAddon>
+                <i class="pi pi-clock"></i>
+            </p-inputGroupAddon>
+            <input 
+                [(ngModel)]="duration"
+                type="text" 
+                pInputText 
+                placeholder="Duration" 
+                />
+            <p-inputGroupAddon>sec</p-inputGroupAddon>
+        </p-inputGroup>
+    </div>
+    <p-button 
+        label="Create Signal" 
+        icon="pi pi-check" 
+        [loading]="loading" 
+        (onClick)="createSignal()" />

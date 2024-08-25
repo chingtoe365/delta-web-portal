@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
+import { SignalSubmitComponent } from '../forms/signal.submit.component';
 
 @Component({
   selector: 'app-analysis',
   standalone: true,
   imports: [
-    SharedModule
+    SharedModule,
+    SignalSubmitComponent
   ],
   templateUrl: './analysis.component.html',
   styles: ``
