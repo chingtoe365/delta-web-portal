@@ -13,5 +13,15 @@ import { SignalSubmitComponent } from '../forms/signal.submit.component';
   styles: ``
 })
 export class AnalysisComponent {
+  selectedTradeItem: string = "";
+  selectedNewsKeyword: string = "";
+
+  onTradeItemSubmitted(event: any){
+    this.selectedTradeItem = event.item
+  }
+
+  onNewsSubmitted(event: any){
+    this.selectedNewsKeyword = event.item
+  }
 
 }

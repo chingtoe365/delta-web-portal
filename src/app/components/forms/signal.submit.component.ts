@@ -39,11 +39,18 @@ export class SignalSubmitComponent {
   duration: number | undefined;
   loading: boolean = false;
 
+  private _tradeItem: string = "";
+
+  @Input() set tradeItem(value: string) {
+    this._tradeItem = value;
+  }
+
   constructor() {
   }
 
   createSignal() {
     console.log("Create signal");
+    console.log("Trade item: " + this._tradeItem);
     console.log("Category: " + this.category?.name);
     console.log("Is up: " + this.isUp);
     console.log("Percentage: " + this.percentage);

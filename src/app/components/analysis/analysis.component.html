@@ -1,5 +1,15 @@
-<app-search-bar>
-</app-search-bar>
+<app-search-bar
+    [inputCategory]="'tradeItem'"
+    (inputSubmitted)="onTradeItemSubmitted($event)"
+/>
+<app-search-bar
+    [inputCategory]="'news'"
+    [placeHolder]="'Search for news'"
+    (iputSubmitted)="onNewsSubmitted($event)"
+/>
+
 <app-candlestick-chart
 ></app-candlestick-chart>
-<app-signal-submit></app-signal-submit>
+<app-signal-submit 
+    [tradeItem]="selectedTradeItem"
+/>
