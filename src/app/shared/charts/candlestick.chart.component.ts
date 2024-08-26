@@ -1,7 +1,7 @@
 import { Component, ViewChild } from "@angular/core";
 
 import { ApexOptions} from "apexcharts";
-import {ApexChart, ApexYAxis, ApexXAxis, ApexTitleSubtitle, ApexAxisChartSeries, ChartComponent} from 'ng-apexcharts';
+import {ApexChart, ApexYAxis, ApexXAxis, ApexTitleSubtitle, ApexAxisChartSeries, ChartComponent, ApexAnnotations} from 'ng-apexcharts';
 // import ApexCharts = require('./node_modules/apexcharts/dist/apexcharts.min.js');
 // export type ChartOptions = {
 //   series: ApexAxisChartSeries;
@@ -16,6 +16,7 @@ export type ChartOptions = {
   xaxis: ApexXAxis;
   yaxis: ApexYAxis;
   title: ApexTitleSubtitle;
+  annotations: ApexAnnotations;
 };
 
 @Component({
@@ -282,7 +283,7 @@ export class CandleStickChartComponent {
               y: [6604.98, 6606, 6604.07, 6606]
             }
           ]
-        }
+        },
       ],
       chart: {
         type: "candlestick",
@@ -300,7 +301,54 @@ export class CandleStickChartComponent {
         tooltip: {
           enabled: true
         }
-      }
+      },
+      annotations: {
+        xaxis: [
+          {
+            x:  new Date(1538780400000).getTime(),
+            borderColor: '#00E396',
+            label: {
+              borderColor: '#00E396',
+              orientation: 'horizontal',
+              text: 'X Annotation'
+            }
+          }
+        ],
+        // yaxis: [{
+        //     y: 6630,
+        //     borderColor: '#FF4560',
+        //     label: {
+        //         borderColor: '#FF4560',
+        //         style: {
+        //             color: '#fff',
+        //             background: '#FF4560'
+        //         },
+        //         text: 'Support'
+        //     }
+        // }],
+      //   points: [
+      //     {
+      //       x: new Date(1538884800000),
+      //       y: 6606,
+      //       marker: {
+      //         size: 15,
+      //         fillColor: "#fff",
+      //         strokeColor: "#2698FF",
+      //         radius: 2
+      //       },
+      //       label: {
+      //         borderColor: "#FF4560",
+      //         offsetY: 0,
+      //         style: {
+      //           color: "#fff",
+      //           background: "#FF4560"
+      //         },
+    
+      //         text: "Point Annotation (XY)"
+      //       }
+      //     }
+      //   ]
+      },
     } as ChartOptions;
     // var chart = new ApexCharts(document.querySelector('#chart'), this.chartOptions);
     // chart.render()
