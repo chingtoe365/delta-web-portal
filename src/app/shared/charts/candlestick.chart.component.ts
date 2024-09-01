@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, EventEmitter, Output, ViewChild } from "@angular/core";
 
 import { ApexOptions} from "apexcharts";
 import {ApexChart, ApexYAxis, ApexXAxis, ApexTitleSubtitle, ApexAxisChartSeries, ChartComponent, ApexAnnotations} from 'ng-apexcharts';
@@ -30,13 +30,17 @@ export type ChartOptions = {
   // styleUrl: './candlestick.chart.component.css'
 })
 export class CandleStickChartComponent {
-  // @ViewChild("chart") chart: any;
+  @ViewChild("chart") chart: ApexCharts;
   // public chartOptions: Partial<ChartOptions>;
-  @ViewChild("chart") chart!: ChartComponent;
+
+  @Output() onAnnotationClick = new EventEmitter<any>();
+  @Output() onTooltipOptionChange = new EventEmitter<boolean>();
+  
   public chartOptions: ChartOptions;
+  inAnnotation: boolean = false;
   // public chartOptions: ApexOptions;
 
-  constructor() {
+  constructor(private cdref: ChangeDetectorRef) {
     this.chartOptions = {
       series: [
         {
@@ -294,7 +298,10 @@ export class CandleStickChartComponent {
         align: "left"
       },
       xaxis: {
-        type: "datetime"
+        type: "datetime",
+        tooltip: {
+          enabled: true
+        }
       },
       yaxis: {
         type: "numeric",
@@ -303,17 +310,17 @@ export class CandleStickChartComponent {
         }
       },
       annotations: {
-        xaxis: [
-          {
-            x:  new Date(1538780400000).getTime(),
-            borderColor: '#00E396',
-            label: {
-              borderColor: '#00E396',
-              orientation: 'horizontal',
-              text: 'X Annotation'
-            }
-          }
-        ],
+        // xaxis: [
+        //   {
+        //     x:  new Date(1538780400000).getTime(),
+        //     borderColor: '#00E396',
+        //     label: {
+        //       borderColor: '#00E396',
+        //       orientation: 'horizontal',
+        //       text: 'X Annotation'
+        //     }
+        //   }
+        // ],
         // yaxis: [{
         //     y: 6630,
         //     borderColor: '#FF4560',
@@ -326,34 +333,76 @@ export class CandleStickChartComponent {
         //         text: 'Support'
         //     }
         // }],
-      //   points: [
-      //     {
-      //       x: new Date(1538884800000),
-      //       y: 6606,
-      //       marker: {
-      //         size: 15,
-      //         fillColor: "#fff",
-      //         strokeColor: "#2698FF",
-      //         radius: 2
-      //       },
-      //       label: {
-      //         borderColor: "#FF4560",
-      //         offsetY: 0,
-      //         style: {
-      //           color: "#fff",
-      //           background: "#FF4560"
-      //         },
-    
-      //         text: "Point Annotation (XY)"
-      //       }
-      //     }
-      //   ]
+        points: [
+          {
+            x: new Date(1538780400000).getTime(),
+            y: 6650,
+            marker: {
+              size: 10,
+              fillColor: "#fff",
+              strokeColor: "#2698FF",
+              radius: 2,
+              cssClass: "news-marker"
+            },
+            label: {
+              borderColor: "#FF4560",
+              offsetY: 0,
+              style: {
+                color: "#fff",
+                background: "#FF4560",
+                // "zindex": 999
+              },
+              text: "Fed interest rate decision",
+            },
+            // mouseEnter: (_: any, event: MouseEvent) => {
+            //   console.log("mouse enter");
+            //   if (this.chartOptions.yaxis.tooltip !== undefined && this.chartOptions.xaxis.tooltip !== undefined) {
+            //     console.log("tooltip option not null");
+            //     this.chartOptions.yaxis.tooltip.enabled = false;
+            //     this.chartOptions.xaxis.tooltip.enabled = false;
+            //     // this.onTooltipOptionChange.emit(true);
+                
+            //     // this.chart.(this.chartOptions);
+            //     // cdref.detectChanges();
+            //     // this.chartOptions.tooltip.enabled = false;
+            //   }
+            //   this.refreshChart();
+            // },
+            // mouseLeave: (_: any, event: MouseEvent) => {
+            //   console.log("mouse leave");
+            //   if (this.chartOptions.yaxis.tooltip !== undefined && this.chartOptions.xaxis.tooltip !== undefined) {
+            //     console.log("tooltip option not null");
+            //     this.chartOptions.yaxis.tooltip.enabled = true;
+            //     this.chartOptions.xaxis.tooltip.enabled = true;
+            //     // this.onTooltipOptionChange.emit(true);
+            //   }
+            //   this.refreshChart();
+            // },
+            click: (_: any, event: MouseEvent) => {
+              console.log("clicked on annotation");
+              console.log(event);
+              console.log(_);
+              // this.chartOptions.yaxis.tooltip.enabled = false;
+              // this.chartOptions?.yaxis?.tooltip?.enabled = false;
+              this.onAnnotationClick.emit(event);  
+            }
+          } as PointAnnotations
+        ]
       },
     } as ChartOptions;
     // var chart = new ApexCharts(document.querySelector('#chart'), this.chartOptions);
     // chart.render()
   }
 
+  refreshChart(){
+    // console.log("Refreshing chart...");
+    console.log(this.chartOptions?.xaxis?.tooltip?.enabled);
+    console.log(this.chartOptions?.yaxis?.tooltip?.enabled);
+    this.chart.updateOptions(this.chartOptions);
+    // this.chart.updateOptions(this.chartOptions);
+    // ApexCharts.exec('', this.chartOptions);
+    // this.cdref.detectChanges();
+  }
   // public generateDayWiseTimeSeries(baseval: number, count: number, yrange: any) {
   //   var i = 0;
   //   var series = [];

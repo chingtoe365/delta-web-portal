@@ -1,0 +1,13 @@
+<p-dialog 
+    header="{{newsTitle}}" 
+    [modal]="true" 
+    [(visible)]="visible" 
+    (visibleChange)="visibleChange.emit($event)" 
+    [style]="{ width: '25rem' }"
+>
+    <h1>Some news that is related!</h1>
+    <p-button 
+        label="Close" 
+        (click)="close()"
+    />
+</p-dialog>

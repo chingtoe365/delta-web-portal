@@ -9,7 +9,14 @@
 />
 
 <app-candlestick-chart
+    #candlestickChart
+    (onAnnotationClick)="onAnnotationClick($event)"
+    (onTooltipOptionChange)="refreshCandlestickChart($event)"
 ></app-candlestick-chart>
+<app-news-abstract-overlay 
+    [(visible)]="newsDialogVisible"
+    [newsTitle]="selectedNewsTitle"
+/>
 <app-signal-submit 
     [tradeItem]="selectedTradeItem"
 />
