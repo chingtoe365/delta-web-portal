@@ -1,0 +1,22 @@
+<app-search-bar
+    [inputCategory]="'tradeItem'"
+    (inputSubmitted)="onTradeItemSubmitted($event)"
+/>
+<app-search-bar
+    [inputCategory]="'news'"
+    [placeHolder]="'Search for news'"
+    (iputSubmitted)="onNewsSubmitted($event)"
+/>
+
+<app-candlestick-chart
+    #candlestickChart
+    (onAnnotationClick)="onAnnotationClick($event)"
+    (onTooltipOptionChange)="refreshCandlestickChart($event)"
+></app-candlestick-chart>
+<app-news-abstract-overlay 
+    [(visible)]="newsDialogVisible"
+    [newsTitle]="selectedNewsTitle"
+/>
+<app-signal-submit 
+    [tradeItem]="selectedTradeItem"
+/>

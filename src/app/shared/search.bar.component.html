@@ -1,0 +1,13 @@
+<div style="width: 100%">
+    <p-autoComplete 
+    [(ngModel)]="inputItem" 
+    [suggestions]="suggestions" 
+    [dropdown]="true" 
+    (completeMethod)="completeSearch($event)"
+    [placeholder]="placeHolder"
+    />
+<p-button label="Search" 
+    (click)="submitSearch($event)"
+    />
+</div>
+
