@@ -4,8 +4,8 @@ import { SignalListComponent } from './components/signal-list/signal-list.compon
 import { AnalysisComponent } from './components/analysis/analysis.component';
 
 const routes: Routes = [
-  { path: '', component: SignalListComponent },
-  { path: 'analysis', component: AnalysisComponent }
+  // { path: '', component: SignalListComponent },
+  // { path: 'analysis', component: AnalysisComponent }
 ];
 @NgModule({
   imports: [

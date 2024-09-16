@@ -1,22 +1,43 @@
-<app-search-bar
-    [inputCategory]="'tradeItem'"
-    (inputSubmitted)="onTradeItemSubmitted($event)"
-/>
-<app-search-bar
-    [inputCategory]="'news'"
-    [placeHolder]="'Search for news'"
-    (iputSubmitted)="onNewsSubmitted($event)"
-/>
+<div class="flex flex-row">
+    <div class="flex-grow-1">
+        <div class="card p-fluid">
+            <p-floatLabel>
+                <p-chips 
+                id="keywords"
+                [(ngModel)]="newsKeywords" 
+                />
+                <label for="keywords">Search news by keywords</label>
+            </p-floatLabel>
+            
+        </div>
+        <app-candlestick-chart
+            #candlestickChart
+            (onAnnotationClick)="onAnnotationClick($event)"
+            (onTooltipOptionChange)="refreshCandlestickChart($event)"
+        ></app-candlestick-chart>
+        <app-news-abstract-overlay 
+            [(visible)]="newsDialogVisible"
+            [newsTitle]="selectedNewsTitle"
+        />
 
-<app-candlestick-chart
-    #candlestickChart
-    (onAnnotationClick)="onAnnotationClick($event)"
-    (onTooltipOptionChange)="refreshCandlestickChart($event)"
-></app-candlestick-chart>
-<app-news-abstract-overlay 
-    [(visible)]="newsDialogVisible"
-    [newsTitle]="selectedNewsTitle"
-/>
-<app-signal-submit 
-    [tradeItem]="selectedTradeItem"
-/>
+    </div>
+    <!-- transitionOptions="800ms cubic-bezier(0,1.5,1,1.5)" -->
+    <div class="flex-shrink-1">
+        <p-panel 
+            header="Subsribed signals" 
+        >
+            <p>
+                Subscribed signals with this item goes here...
+            </p>
+        </p-panel>
+        <p-panel 
+            header="Create a signal" 
+            [toggleable]="true"
+        >
+                <app-signal-submit 
+                [tradeItem]="selectedTradeItem"
+            />
+        </p-panel>
+    </div>
+    
+</div>

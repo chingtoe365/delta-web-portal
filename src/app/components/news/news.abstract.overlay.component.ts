@@ -1,5 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { OverlayPanel, OverlayPanelModule } from 'primeng/overlaypanel';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 
@@ -7,25 +6,21 @@ import { ButtonModule } from 'primeng/button';
   selector: 'app-news-abstract-overlay',
   standalone: true,
   imports: [
-    // OverlayPanelModule,
     DialogModule,
     ButtonModule
   ],
   providers: [
-    // OverlayPanel
   ],
   templateUrl: './news.abstract.overlay.component.html',
   styles: ``
 })
 export class NewsAbstractOverlayComponent {
-  // @ViewChild('op') overlayComponent: OverlayPanel;
   @ViewChild('diag') dialogComponent: any;
 
   @Output() visibilityChange: EventEmitter<any> = new EventEmitter();
 
   private _newsTitle: string = "";
   private _newsAbstract: string = "";
-  // private _visible: boolean = false;
 
   @Input() set newsTitle(value: string) {
     this._newsTitle = value;

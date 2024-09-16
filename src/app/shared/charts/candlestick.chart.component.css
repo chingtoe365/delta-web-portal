@@ -1,5 +1,16 @@
-.news-marker{
-    z-index: 1000000;
+.newsMarker:hover{
     cursor: pointer;
-    
+    pointer-events: all;
+    z-index: 1000000 !important;
+    color: red;
+}
+.newsMarker{
+    stroke-width: 25px;
+}
+.apexcharts-point-annotations{
+    pointer-events: all;
+    cursor: pointer;
+}
+.apexcharts-point-annotations:hover{
+    cursor: pointer;
 }
