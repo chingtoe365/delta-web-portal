@@ -1,3 +1,11 @@
+<div class="flex w-full justify-content-end">
+    <p-dropdown 
+        [options]="intervals" 
+        optionLabel="name" 
+        placeholder="Select interval" 
+    />
+</div>
+
 <apx-chart #chart
     [series]="chartOptions.series"
     [chart]="chartOptions.chart"
@@ -5,4 +13,5 @@
     [xaxis]="chartOptions.xaxis"
     [yaxis]="chartOptions.yaxis"
     [annotations]="chartOptions.annotations"
+    [tooltip]="chartOptions.tooltip"
 ></apx-chart>

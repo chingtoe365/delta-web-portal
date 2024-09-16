@@ -22,6 +22,7 @@ type ChangeSignalConfig = {
   isUp: boolean;
   duration: number;
 }
+
 @Component({
   selector: 'app-signal-list',
   standalone: true,

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Output, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild } from "@angular/core";
 
 import { ApexOptions} from "apexcharts";
 import {ApexChart, ApexYAxis, ApexXAxis, ApexTitleSubtitle, ApexAxisChartSeries, ChartComponent, ApexAnnotations} from 'ng-apexcharts';
@@ -16,8 +16,14 @@ export type ChartOptions = {
   xaxis: ApexXAxis;
   yaxis: ApexYAxis;
   title: ApexTitleSubtitle;
+  tooltip: ApexTooltip;
   annotations: ApexAnnotations;
 };
+
+interface Interval{
+  name: string;
+  code: string;
+}
 
 @Component({
   selector: 'app-candlestick-chart',
@@ -29,7 +35,7 @@ export type ChartOptions = {
   // templateUrl: './candlestick.chart.component.html',
   // styleUrl: './candlestick.chart.component.css'
 })
-export class CandleStickChartComponent {
+export class CandleStickChartComponent implements OnInit {
   @ViewChild("chart") chart: ApexCharts;
   // public chartOptions: Partial<ChartOptions>;
 
@@ -38,6 +44,8 @@ export class CandleStickChartComponent {
   
   public chartOptions: ChartOptions;
   inAnnotation: boolean = false;
+  intervals: Interval[] | undefined;
+  selectedInterval: Interval | undefined;
   // public chartOptions: ApexOptions;
 
   constructor(private cdref: ChangeDetectorRef) {
@@ -294,7 +302,7 @@ export class CandleStickChartComponent {
         height: 350
       },
       title: {
-        text: "CandleStick Chart",
+        text: "",
         align: "left"
       },
       xaxis: {
@@ -308,6 +316,11 @@ export class CandleStickChartComponent {
         tooltip: {
           enabled: true
         }
+      },
+      tooltip: {
+        enabled : true,
+        shared: false,
+        followCursor: true
       },
       annotations: {
         // xaxis: [
@@ -338,46 +351,84 @@ export class CandleStickChartComponent {
             x: new Date(1538780400000).getTime(),
             y: 6650,
             marker: {
-              size: 10,
+              size: 7,
               fillColor: "#fff",
               strokeColor: "#2698FF",
-              radius: 2,
-              cssClass: "news-marker"
+              radius: 0,
+              cssClass: "newsMarker"
             },
             label: {
-              borderColor: "#FF4560",
+              borderColor: "var(--primary-color)",
               offsetY: 0,
               style: {
-                color: "#fff",
-                background: "#FF4560",
+                color: "var(--primary-color)",
+                background: "#fff", // #FF4560
+                cursor: "pointer"
                 // "zindex": 999
               },
               text: "Fed interest rate decision",
             },
-            // mouseEnter: (_: any, event: MouseEvent) => {
-            //   console.log("mouse enter");
-            //   if (this.chartOptions.yaxis.tooltip !== undefined && this.chartOptions.xaxis.tooltip !== undefined) {
-            //     console.log("tooltip option not null");
-            //     this.chartOptions.yaxis.tooltip.enabled = false;
-            //     this.chartOptions.xaxis.tooltip.enabled = false;
-            //     // this.onTooltipOptionChange.emit(true);
+            mouseEnter: (_: any, event: MouseEvent) => {
+              // this.chart.
+              // console.log("mouse enter");
+              // console.log(event);
+              // let tooltips = document.getElementsByClassName("apexcharts-active");
+              // // document.get
+              // // console.log(tooltips)
+              // for(var i=0; i<tooltips.length; i++){
+              //   console.log(tooltips.item(i)?.className)
+              //   if(tooltips.item(i)?.className.search('apexchartstooltip')){
+              //     console.log("find real tooltip")
+              //   }
+              //   // console.log(tooltips.item(i)?.getAttribute("width"))
+              //   // console.log(tooltips.item(i)?.getAttribute("color"))
+              //   tooltips.item(i)?.setAttribute("opacity", "0");
+              // }
+              // tooltips.array.forEach(element => {
                 
-            //     // this.chart.(this.chartOptions);
-            //     // cdref.detectChanges();
-            //     // this.chartOptions.tooltip.enabled = false;
-            //   }
-            //   this.refreshChart();
-            // },
-            // mouseLeave: (_: any, event: MouseEvent) => {
-            //   console.log("mouse leave");
-            //   if (this.chartOptions.yaxis.tooltip !== undefined && this.chartOptions.xaxis.tooltip !== undefined) {
-            //     console.log("tooltip option not null");
-            //     this.chartOptions.yaxis.tooltip.enabled = true;
-            //     this.chartOptions.xaxis.tooltip.enabled = true;
-            //     // this.onTooltipOptionChange.emit(true);
-            //   }
-            //   this.refreshChart();
-            // },
+              // });
+              // tooltip.item(0)?.setAttribute("opacity", "0");
+              
+              // if (this.chartOptions.yaxis.tooltip !== undefined && this.chartOptions.xaxis.tooltip !== undefined) {
+              //   console.log("tooltip option not null");
+              //   // console.log(this.chartOptions.yaxis.tooltip);
+              //   // console.log(this.chartOptions.xaxis.tooltip);
+              //   console.log(this.chartOptions.tooltip);
+              //   // this.chartOptions.yaxis.tooltip.enabled = false;
+              //   // this.chartOptions.xaxis.tooltip.enabled = false;
+              //   // this.onTooltipOptionChange.emit(true);
+                
+              //   // this.chart.(this.chartOptions);
+              //   // cdref.detectChanges();
+              //   // this.chartOptions.tooltip.enabled = false;
+              // }
+              // if (this.chartOptions.tooltip !== undefined){
+              //   this.chartOptions.tooltip.enabled = false;
+
+              // }
+              
+              // this.refreshChart();
+            },
+            mouseLeave: (_: any, event: MouseEvent) => {
+              // console.log("mouse leave");
+              // // if (this.chartOptions.yaxis.tooltip !== undefined && this.chartOptions.xaxis.tooltip !== undefined) {
+              // //   console.log("tooltip option not null");
+              // //   this.chartOptions.yaxis.tooltip.enabled = true;
+              // //   this.chartOptions.xaxis.tooltip.enabled = true;
+              // //   // this.onTooltipOptionChange.emit(true);
+              // // }
+              // // if (this.chartOptions.tooltip !== undefined){
+              //   // this.chartOptions.tooltip.enabled = true;
+              // let tooltips = document.getElementsByClassName("apexcharts-active");
+              // console.log(tooltips)
+              // for(var i=0; i<tooltips.length; i++){
+              //   var thisToolTip = document.getElementById
+              //   tooltips.item(i)?.setAttribute("opacity", "1");
+              // }
+              // tooltip.item(0)?.setAttribute("opacity", "1");
+              // }
+              // this.refreshChart();
+            },
             click: (_: any, event: MouseEvent) => {
               console.log("clicked on annotation");
               console.log(event);
@@ -394,14 +445,31 @@ export class CandleStickChartComponent {
     // chart.render()
   }
 
+  ngOnInit(): void {
+    this.intervals = [
+      {name: "1 minute", code: "60"},
+      {name: "5 minutes", code: "300"},
+      {name: "10 minutes", code: "600"},
+      {name: "15 minutes", code: "900"},
+      {name: "30 minutes", code: "1800"},
+      {name: "1 hour", code: "3600"},
+      {name: "2 hours", code: "7200"},
+      {name: "4 hours", code: "14400"},
+      {name: "1 day", code: "86400"},
+      {name: "1 week", code: "604800"},
+    ];
+  }
   refreshChart(){
     // console.log("Refreshing chart...");
-    console.log(this.chartOptions?.xaxis?.tooltip?.enabled);
-    console.log(this.chartOptions?.yaxis?.tooltip?.enabled);
-    this.chart.updateOptions(this.chartOptions);
+    // console.log(this.chartOptions?.xaxis?.tooltip?.enabled);
+    // console.log(this.chartOptions?.yaxis?.tooltip?.enabled);
+    this.chart.updateOptions(this.chartOptions, false, true).then(() => {
+      console.log("Chart updated");
+      console.log(this.chartOptions.tooltip.enabled);
+      // this.cdref.detectChanges();
+    });
     // this.chart.updateOptions(this.chartOptions);
     // ApexCharts.exec('', this.chartOptions);
-    // this.cdref.detectChanges();
   }
   // public generateDayWiseTimeSeries(baseval: number, count: number, yrange: any) {
   //   var i = 0;

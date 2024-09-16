@@ -1,0 +1,27 @@
+<div class="card">
+    <p-dataView 
+        [value]="filteredSignals" 
+        layout="list"
+    >
+    <ng-template pTemplate="header">
+        <div class="flex flex-column md:flex-row md:justify-content-between p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input type="text" pInputText placeholder="Search by name" [(ngModel)]="filteredSignalName" (input)="filterSignals()" />
+        </div>
+    </ng-template>
+      <ng-template let-filteredSignals pTemplate="list">
+        <div class="col-12" *ngFor="let signal of filteredSignals" class="col-12">
+          <div>
+            <div>
+              <span class="font-bold">{{ signal.name }}</span>
+              <div class="flex gap-2">
+                <i class="pi pi-tag text-sm"></i>
+                <span>{{ signal.description }}</span>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-dataView>
+  </div>

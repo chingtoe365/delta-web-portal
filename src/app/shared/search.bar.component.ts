@@ -9,12 +9,12 @@ interface AutoCompleteCompleteEvent {
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search.bar.component.html',
-  styles: ``
+  styleUrl: './search.bar.component.css'
 })
 export class SearchBarComponent {
   private _inputCategory: string = "";
   private _inputItem: any;
-  private _placeHolder: string = "Search Crypto/Stocks/Forex/Commodities with symbols or names";
+  private _placeHolder: string = "Search Crypto, stocks, forex, commodities, etc.";
 
   @Input() set inputCategory(value: string) {
     this._inputCategory = value;
